@@ -1,9 +1,7 @@
 package com.eps.learnp.data.LearnpData.LearnpData.controller;
 
 import com.eps.learnp.data.LearnpData.LearnpData.entity.Rule;
-import com.eps.learnp.data.LearnpData.LearnpData.entity.Word;
 import com.eps.learnp.data.LearnpData.LearnpData.services.RuleService;
-import com.eps.learnp.data.LearnpData.LearnpData.services.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

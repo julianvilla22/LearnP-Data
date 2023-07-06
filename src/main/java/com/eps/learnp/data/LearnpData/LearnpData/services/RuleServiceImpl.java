@@ -1,10 +1,8 @@
 package com.eps.learnp.data.LearnpData.LearnpData.services;
 
 import com.eps.learnp.data.LearnpData.LearnpData.entity.Rule;
-import com.eps.learnp.data.LearnpData.LearnpData.entity.Word;
 import com.eps.learnp.data.LearnpData.LearnpData.repository.RuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

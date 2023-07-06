@@ -9,33 +9,39 @@ import java.util.List;
 
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
-    @Query(value = "SELECT w.*\n" +
-                   "FROM word w\n" +
-                   "         JOIN example e ON w.idword = e.idword\n" +
-                   "         JOIN (\n" +
-                   "    SELECT idheadword\n" +
-                   "    FROM example\n" +
-                   "    WHERE idword = ?1\n" +
-                   ") AS wordrules ON e.idheadword = wordrules.idheadword", nativeQuery = true)
+    @Query(value = """
+            SELECT w.*
+            FROM word w
+                     JOIN example e ON w.idword = e.idword
+                     JOIN (
+                SELECT idheadword
+                FROM example
+                WHERE idword = ?1
+            ) AS wordrules ON e.idheadword = wordrules.idheadword""", nativeQuery = true)
     List<Word> getWordSiblings(Long id);
 
-    @Query(value = "SELECT w.idword, name\n" +
-                   "FROM example\n" +
-                   "         JOIN rule r ON example.idheadword = r.idheadword\n" +
-                   "         JOIN word w ON example.idword = w.idword\n" +
-                   "WHERE r.idrule = ?1", nativeQuery = true)
+    @Query(value = """
+            SELECT w.idword, name
+            FROM example
+                     JOIN rule r ON example.idheadword = r.idheadword
+                     JOIN word w ON example.idword = w.idword
+            WHERE r.idrule = ?1""", nativeQuery = true)
     List<Word> getRuleExamples(Long id);
 
-    @Query(value = "SELECT w.idword, w.name\n" +
-                   "FROM exception e\n" +
-                   "         JOIN rule r ON e.idheadword = r.idheadword\n" +
-                   "         JOIN word w ON e.idword = w.idword\n" +
-                   "WHERE idrule = ?1\n", nativeQuery = true)
+    @Query(value = """
+            SELECT w.idword, w.name
+            FROM exception e
+                     JOIN rule r ON e.idheadword = r.idheadword
+                     JOIN word w ON e.idword = w.idword
+            WHERE idrule = ?1
+            """, nativeQuery = true)
     List<Word> getRuleExceptions(Long ruleid);
 
-    @Query(value = "SELECT w.idword, w.name\n" +
-                   "FROM homophone\n" +
-                   "         JOIN word w ON homophone.idword = w.idword OR homophone.idheadword = w.idword\n" +
-                   "WHERE (homophone.idheadword = ?1 OR homophone.idword = ?1) AND w.idword <> ?1\n", nativeQuery = true)
+    @Query(value = """
+        SELECT w.idword, w.name
+        FROM homophone
+                 JOIN word w ON homophone.idword = w.idword OR homophone.idheadword = w.idword
+        WHERE (homophone.idheadword = ?1 OR homophone.idword = ?1) AND w.idword <> ?1
+        """, nativeQuery = true)
     List<Word> getWordHomophones(Long id);
 }
