@@ -34,7 +34,7 @@ public class WordController {
         return wordService.getRuleExamples(ruleid);
     }
 
-    @GetMapping("/word/exceptions/{idrule}")
+    @GetMapping("/word/exceptions/{ruleid}")
     public List<Word> getRuleExceptions(@PathVariable("ruleid") Long ruleid){
         return wordService.getRuleExceptions(ruleid);
     }
